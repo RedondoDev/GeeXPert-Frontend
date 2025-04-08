@@ -11,30 +11,30 @@ import {NgIf} from '@angular/common';
 })
 export class SigninComponent {
 
-  loginForm;
+  signinForm;
 
   constructor(private formBuilder: FormBuilder, private router: Router) {
-    this.loginForm = this.formBuilder.group({
+    this.signinForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(16)]],
       password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(16)]]
     });
   }
 
   get username() {
-    return this.loginForm.controls.username;
+    return this.signinForm.controls.username;
   }
 
   get password() {
-    return this.loginForm.controls.password;
+    return this.signinForm.controls.password;
   }
 
-  login() {
-    if (this.loginForm.valid) {
-      console.log("Llamar al servicio de login")
+  signin() {
+    if (this.signinForm.valid) {
+      console.log("Llamar al servicio de signin")
       this.router.navigateByUrl('/home');
-      this.loginForm.reset();
+      this.signinForm.reset();
     } else {
-      this.loginForm.markAllAsTouched();
+      this.signinForm.markAllAsTouched();
       alert("Error al ingresar los datos");
     }
   }

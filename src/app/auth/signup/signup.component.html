@@ -1,38 +1,66 @@
 <section class="flex flex-col w-full items-center justify-between font-sans">
   <h1 class="font-thin text-4xl text-[#F3F3F3] mb-6">SIGN UP</h1>
-  <form class="flex flex-col justify-between w-170 h-75 p-8 pb-6 bg-[#F3F3F3] rounded-[10px] text-[#10172B]">
+  <form [formGroup]="signupForm" autocomplete="off"
+        class="flex flex-col justify-between w-170 min-h-75 h-auto mb-15 p-8 pb-6 bg-[#F3F3F3] rounded-[10px] text-[#10172B]">
     <div class="flex">
       <label class="font-semibold" for="username">USERNAME</label>
-      <input class="w-full ml-5 pl-1 border-b-3 outline-none" type="text" id="username" name="username" required>
+      <div class="flex w-full ml-5 border-b-3">
+        <input formControlName="username" class="w-full pl-1 outline-none" type="text" id="username" name="username"
+               required>
+      </div>
+    </div>
+    <div *ngIf="username.invalid && (username.dirty || username.touched)" class="alert text-[15px] text-red-400">
+      <div *ngIf="username.errors?.['required']">Username is required.</div>
+      <div *ngIf="username.errors?.['minlength']">Username must be at least 6 characters long.</div>
+      <div *ngIf="username.errors?.['maxlength']">Username cannot exceed 16 characters.</div>
     </div>
     <div class="flex">
       <label class="font-semibold" for="email">EMAIL</label>
-      <input class="w-full ml-14.5 pl-1 border-b-3 outline-none" type="email" id="email" name="email" required>
+      <div class="flex w-full ml-14.5 border-b-3">
+        <input formControlName="email" class="w-full pl-1 outline-none" type="email" id="email"
+               name="email" required>
+      </div>
+    </div>
+    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert text-[15px] text-red-400">
+      <div *ngIf="email.errors?.['required']">Email is required.</div>
+      <div *ngIf="email.errors?.['email']">Email must be a valid email address.</div>
     </div>
     <div class="flex">
       <label class="font-semibold" for="password_input">PASSWORD</label>
       <div class="flex w-full ml-5 pr-2 border-b-3">
-        <input class="w-full pl-1 outline-none" type="password" id="password_input" name="password"
-               maxlength="16" required>
+        <input formControlName="password" class="w-full pl-1 outline-none" type="password" id="password_input"
+               name="password" required>
         <img (click)="showHidePassword('password_input')"
              class="w-5 h-5 mt-0.5 ml-2 hover:cursor-pointer hover:scale-115 hover:transition-all"
              src="assets/form/eye.svg" alt="eye icon">
       </div>
     </div>
+    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert text-[15px] text-red-400">
+      <div *ngIf="password.errors?.['required']">Password is required.</div>
+      <div *ngIf="password.errors?.['minlength']">Password must be at least 6 characters long.</div>
+      <div *ngIf="password.errors?.['maxlength']">Password cannot exceed 16 characters.</div>
+      <div *ngIf="password.errors?.['pattern']">Use uppercase, lowercase, number, special character (&#64;$!%*?&) and no spaces.</div>
+    </div>
     <div class="flex">
-      <label class="font-semibold" for="password_input2">PASSWORD</label>
+      <label class="font-semibold" for="confirm_password">PASSWORD</label>
       <div class="flex w-full ml-5 pr-2 border-b-3">
-        <input class="w-full pl-1 outline-none" type="password" id="password_input2" name="password"
-               maxlength="16" required>
-        <img (click)="showHidePassword('password_input2')"
+        <input formControlName="confirm_password" class="w-full pl-1 outline-none" type="password"
+               id="confirm_password"
+               name="confirm_password" required>
+        <img (click)="showHidePassword('confirm_password')"
              class="w-5 h-5 mt-0.5 ml-2 hover:cursor-pointer hover:scale-115 hover:transition-all"
              src="assets/form/eye.svg" alt="eye icon">
       </div>
     </div>
-    <div class="flex justify-end gap-15 **:content-center **:w-25 **:h-11 **:border-3 **:rounded-[10px]">
+    <div *ngIf="signupForm.errors?.['passwordsMismatch'] &&
+                (password.touched || password.dirty || confirm_password.touched || confirm_password.dirty)"
+         class="alert text-[15px] text-red-400">
+      Passwords do not match.
+    </div>
+    <div class="flex justify-end mt-2 gap-15 **:content-center **:w-25 **:h-11 **:border-3 **:rounded-[10px]">
       <a routerLink="/sign-in" class="text-center hover:bg-[#10172B] hover:border-[#10172B]
        hover:text-[#F3F3F3]">SIGN IN</a>
-      <button type="submit" class="bg-[#10172B] border-[#10172B] text-[#F3F3F3] hover:cursor-pointer
+      <button type="submit" (click)="signup()" class="bg-[#10172B] border-[#10172B] text-[#F3F3F3] hover:cursor-pointer
       hover:bg-[#F3F3F3] hover:border-[#10172B] hover:text-[#10172B]">SIGN UP
       </button>
     </div>

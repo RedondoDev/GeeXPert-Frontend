@@ -1,6 +1,6 @@
 <section class="flex flex-col w-full items-center justify-between font-sans pt-5">
   <h1 class="font-thin text-4xl text-[#F3F3F3] mt-2 mb-6">SIGN IN</h1>
-  <form [formGroup]="loginForm"
+  <form [formGroup]="signinForm" autocomplete="off"
         class="flex flex-col justify-between w-170 h-55 p-8 pb-7 bg-[#F3F3F3] rounded-[10px] text-[#10172B]">
     <div class="flex">
       <label class="font-semibold" for="username">USERNAME</label>
@@ -9,7 +9,7 @@
                required>
       </div>
     </div>
-    <div *ngIf="username.invalid && (username.dirty || username.touched)" class="alert text-s text-red-400">
+    <div *ngIf="username.invalid && (username.dirty || username.touched)" class="alert text-[15px] text-red-400">
       <div *ngIf="username.errors?.['required']">Username is required.</div>
       <div *ngIf="username.errors?.['minlength']">Username must be at least 6 characters long.</div>
       <div *ngIf="username.errors?.['maxlength']">Username cannot exceed 16 characters.</div>
@@ -24,7 +24,7 @@
              src="assets/form/eye.svg" alt="eye icon">
       </div>
     </div>
-    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert text-s text-red-400">
+    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert text-[15px] text-red-400">
       <div *ngIf="password.errors?.['required']">Password is required.</div>
       <div *ngIf="password.errors?.['minlength']">Password must be at least 6 characters long.</div>
       <div *ngIf="password.errors?.['maxlength']">Password cannot exceed 16 characters.</div>
@@ -32,7 +32,7 @@
     <div class="flex justify-end gap-15 **:content-center **:w-25 **:h-11 **:border-3 **:rounded-[10px]">
       <a routerLink="/sign-up" class="text-center hover:bg-[#10172B] hover:border-[#10172B]
        hover:text-[#F3F3F3]">SIGN UP</a>
-      <button type="submit" (click)="login()" class="bg-[#10172B] border-[#10172B] text-[#F3F3F3] hover:cursor-pointer
+      <button type="submit" (click)="signin()" class="bg-[#10172B] border-[#10172B] text-[#F3F3F3] hover:cursor-pointer
       hover:bg-[#F3F3F3] hover:border-[#10172B] hover:text-[#10172B]">SIGN IN
       </button>
     </div>
