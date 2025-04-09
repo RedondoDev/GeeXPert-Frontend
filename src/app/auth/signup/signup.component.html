@@ -39,7 +39,9 @@
       <div *ngIf="password.errors?.['required']">Password is required.</div>
       <div *ngIf="password.errors?.['minlength']">Password must be at least 6 characters long.</div>
       <div *ngIf="password.errors?.['maxlength']">Password cannot exceed 16 characters.</div>
-      <div *ngIf="password.errors?.['pattern']">Use uppercase, lowercase, number, special character (&#64;$!%*?&) and no spaces.</div>
+      <div *ngIf="password.errors?.['pattern']">Use uppercase, lowercase, number, special character (&#64;$!%*?&) and no
+        spaces.
+      </div>
     </div>
     <div class="flex">
       <label class="font-semibold" for="confirm_password">PASSWORD</label>
@@ -51,6 +53,10 @@
              class="w-5 h-5 mt-0.5 ml-2 hover:cursor-pointer hover:scale-115 hover:transition-all"
              src="assets/form/eye.svg" alt="eye icon">
       </div>
+    </div>
+    <div *ngIf="confirm_password.invalid && (confirm_password.dirty || confirm_password.touched)"
+         class="alert text-[15px] text-red-400">
+      <div *ngIf="confirm_password.errors?.['required']">Password confirmation is required.</div>
     </div>
     <div *ngIf="signupForm.errors?.['passwordsMismatch'] &&
                 (password.touched || password.dirty || confirm_password.touched || confirm_password.dirty)"
