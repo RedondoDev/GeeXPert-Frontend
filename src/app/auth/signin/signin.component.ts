@@ -2,6 +2,8 @@ import {Component} from '@angular/core';
 import {Router, RouterLink} from '@angular/router';
 import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {NgIf} from '@angular/common';
+import {SigninService} from '../../services/auth/signin.service';
+import {SigninRequest} from '../../services/auth/signinRequest';
 
 @Component({
   selector: 'app-signin',
@@ -13,7 +15,7 @@ export class SigninComponent {
 
   signinForm;
 
-  constructor(private formBuilder: FormBuilder, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private signinService: SigninService) {
     this.signinForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(16)]],
       password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(16)]]
@@ -30,7 +32,18 @@ export class SigninComponent {
 
   signin() {
     if (this.signinForm.valid) {
-      console.log("Llamar al servicio de signin")
+      this.signinService.signin(this.signinForm.value as SigninRequest).subscribe({
+        next: (userData) => {
+          console.log(userData);
+        },
+        error: (errorData) => {
+          console.error('Error occurred during sign-in:', errorData);
+          console.error(errorData);
+        },
+        complete: () => {
+          console.info('Request completed');
+        }
+      });
       this.router.navigateByUrl('/home');
       this.signinForm.reset();
     } else {
