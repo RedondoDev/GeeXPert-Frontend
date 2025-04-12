@@ -1,6 +1,6 @@
 <header>
   <div class="flex justify-between items-center py-8 px-15 text-[#F3F3F3] font-sans">
-    <h1 class="pb-0.5 text-2xl font-semibold"><a routerLink="/home">GEEXPERT</a></h1>
+    <h1 class="mb-0.5 text-2xl font-semibold"><a routerLink="/home">GEEXPERT</a></h1>
     <div *ngIf="isLoggedIn"
          class="flex items-center justify-between w-130 h-9 mr-50 pl-3 pr-1 border-1 rounded-[10px] border-[#F3F3F3]">
       <input type="text" placeholder="Search" class="w-120 pb-0.5 border-none outline-none placeholder-gray-300">
@@ -12,14 +12,14 @@
     **:justify-center **:w-30 **:h-9 **:rounded-[10px] **:hover:underline-offset-2">
       <li *ngIf="isLoggedIn" class="hover:underline"><a routerLink="/error">COLLECTION</a></li>
       <li *ngIf="!isLoggedIn" class="hover:underline"></li>
-      <li class="mr-2 hover:underline"><a routerLink="/error">EXPLORE</a></li>
-      <li *ngIf="!isLoggedIn" class="border-1 border-[#F3F3F3] font-semibold
+      <li *ngIf="isLoggedIn" class="mr-2 hover:underline"><a routerLink="/error">EXPLORE</a></li>
+      <li *ngIf="!isLoggedIn" class="border-1 mb-0.5 pt-0.5 border-[#F3F3F3] font-semibold
       hover:bg-[#F3F3F3] hover:text-[#10172B] hover:transition-all">
         <a routerLink="/sign-in">SIGN IN</a>
       </li>
-      <li *ngIf="isLoggedIn" class="border-1 border-[#F3F3F3] text-[#c9361c]
+      <li *ngIf="isLoggedIn" class="border-1 mb-0.5 pt-0.5 border-[#F3F3F3] text-[#c9361c]
       hover:bg-[#a32c24] hover:text-[#F3F3F3] hover:transition-all">
-        <a routerLink="/home">SIGN OUT</a>
+        <a (click)="signOut()" routerLink="/home">SIGN OUT</a>
       </li>
     </ul>
   </div>

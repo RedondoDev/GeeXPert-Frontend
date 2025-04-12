@@ -14,6 +14,7 @@ import {SigninRequest} from '../../services/auth/signinRequest';
 export class SigninComponent {
 
   signinForm;
+  signinError: string = "";
 
   constructor(private formBuilder: FormBuilder, private router: Router, private signinService: SigninService) {
     this.signinForm = this.formBuilder.group({
@@ -38,14 +39,14 @@ export class SigninComponent {
         },
         error: (errorData) => {
           console.error('Error occurred during sign-in:', errorData);
-          console.error(errorData);
+          this.signinError = errorData;
         },
         complete: () => {
           console.info('Request completed');
+          this.router.navigateByUrl('/home');
+          this.signinForm.reset();
         }
       });
-      this.router.navigateByUrl('/home');
-      this.signinForm.reset();
     } else {
       this.signinForm.markAllAsTouched();
       alert("Error al ingresar los datos");

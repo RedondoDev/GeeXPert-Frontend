@@ -1,7 +1,6 @@
 {
-  "message": "Authentication successful",
   "id": "1",
-  "name": "John",
-  "lastName": "Doe",
-  "email": "johndoe@gmail.com"
+  "username": "John",
+  "email": "johndoe@gmail.com",
+  "message": "Authentication successful"
 }

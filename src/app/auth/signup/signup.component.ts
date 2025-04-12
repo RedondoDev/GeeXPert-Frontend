@@ -12,6 +12,8 @@ import {NgIf} from '@angular/common';
 export class SignupComponent {
 
   signupForm;
+  // TODO
+  // signupError: string = "";
 
   constructor(private formBuilder: FormBuilder, private router: Router) {
     this.signupForm = this.formBuilder.group({
