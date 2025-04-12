@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {NgIf} from '@angular/common';
+import {NgIf, NgOptimizedImage} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import {SigninService} from '../../services/auth/signin.service';
 
@@ -7,7 +7,8 @@ import {SigninService} from '../../services/auth/signin.service';
   selector: 'app-header',
   imports: [
     NgIf,
-    RouterLink
+    RouterLink,
+    NgOptimizedImage
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
