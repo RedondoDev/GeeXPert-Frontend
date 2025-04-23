@@ -1,3 +1,39 @@
-<div class="bg-[#10172B] text-[#F3F3F3]">
-  <p>trending works!</p>
+<div class="flex flex-col bg-[#10172B] text-[#F3F3F3] px-40 pb-10">
+  <h1 class="text-3xl font-sans font-light pb-15 text-center">TRENDING GAMES</h1>
+  <div class="grid grid-cols-5 grid-rows-2 gap-5">
+    <div *ngFor="let game of games" class="relative group">
+      <img src="{{ game.cover }}" alt="{{ game.name }} Cover" class="w-full h-auto object-cover rounded-[10px]">
+      <div
+        class="absolute inset-0 bg-black bg-opacity-50 flex flex-col rounded-[10px] items-center pt-5 opacity-0 group-hover:opacity-100 transition-opacity">
+        <h3 class="text-xl font-bold pb-4 text-center">{{ game.name }}</h3>
+        <div class="mx-auto text-center">
+          <b class="w-full text-center block">Genres:</b>
+          <ul class="flex list-none justify-start">
+            <li *ngFor="let genre of game.genres" class="text-left">{{ genre }}, &nbsp;</li>
+          </ul>
+          <b class="block">Platforms:</b>
+          <ul class="flex list-none justify-start">
+            <li *ngFor="let platform of game.platforms" class="text-left overflow-hidden">{{ platform }}, &nbsp;</li>
+          </ul>
+          <b class="block">Release Date:</b>
+          <p class="text-left">{{ game.release_date }}</p>
+          <b class="block">Rating:</b>
+          <p class="text-center">{{ game.rating }}</p>
+        </div>
+        <div *ngIf="!isInCollection(game.id)">
+          <button (click)="addQuitToCollection(game.id)"
+                  class="bg-[#F3F3F3] text-[#10172B] rounded-[10px] text-[12px] mx-10 px-4 py-2">
+            ADD TO <br> COLLECTION
+          </button>
+        </div>
+        <div *ngIf="isInCollection(game.id)">
+          <button (click)="addQuitToCollection(game.id)"
+                  class="bg-[#F3F3F3] text-[#10172B] rounded-[10px] text-[12px] mx-10 px-4 py-2">
+            REMOVE FROM <br> COLLECTION
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+<img src="assets/home/shillouettes.webp" alt="Shillouettes" class="w-full h-auto object-cover">
