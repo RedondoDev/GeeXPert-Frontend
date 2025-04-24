@@ -1,11 +1,12 @@
 import {Component} from '@angular/core';
-import {NgForOf, NgIf} from '@angular/common';
+import {DatePipe, NgForOf, NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-trending',
   imports: [
     NgForOf,
-    NgIf
+    NgIf,
+    DatePipe
   ],
   templateUrl: './trending.component.html',
   styleUrl: './trending.component.css'
@@ -17,9 +18,9 @@ export class TrendingComponent {
       id: 1,
       name: 'Game 1',
       cover: '//images.igdb.com/igdb/image/upload/t_cover_big/co1wz4.jpg',
-      genres: ['Action', 'Adventure'],
-      platforms: ['PC', 'PS5', 'Xbox', 'PSP', 'PSVita', 'Switch'],
-      rating: 4.5,
+      genres: ['Action', 'Adventure', 'Action', 'Adventure'],
+      platforms: ['PC', 'PS5', 'Xbox', 'PSP', 'PSVita', 'Switch', 'Luru', 'gameboy'],
+      rating: 4.543223,
       release_date: '2023-01-15'
     },
     {
@@ -37,7 +38,7 @@ export class TrendingComponent {
       cover: '//images.igdb.com/igdb/image/upload/t_cover_big/co1wz4.jpg',
       genres: ['Action', 'Shooter'],
       platforms: ['PC', 'Xbox'],
-      rating: 4.2,
+      rating: 0,
       release_date: '2021-06-20'
     },
     {
@@ -55,7 +56,7 @@ export class TrendingComponent {
       cover: '//images.igdb.com/igdb/image/upload/t_cover_big/co1wz4.jpg',
       genres: ['Puzzle', 'Adventure'],
       platforms: ['PC', 'Switch'],
-      rating: 3.9,
+      rating: 10,
       release_date: '2019-03-12'
     },
     {
@@ -111,6 +112,16 @@ export class TrendingComponent {
 
   addQuitToCollection(gameId: number) {
     gameId++;
+  }
+
+  formatRating(rating: number): string {
+    if (rating === 0) {
+      return '0.0';
+    } else if (rating === 10) {
+      return '10';
+    } else {
+      return rating.toFixed(1);
+    }
   }
 
 }
