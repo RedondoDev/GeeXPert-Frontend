@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import {DatePipe, NgForOf, NgIf} from '@angular/common';
+import {NgFor} from '@angular/common';
+import {CardComponent} from '../card/card.component';
 
 @Component({
   selector: 'app-rated',
   imports: [
-    DatePipe,
-    NgForOf,
-    NgIf
+    NgFor,
+    CardComponent
   ],
   templateUrl: './rated.component.html',
   styleUrl: './rated.component.css'
@@ -65,7 +65,7 @@ export class RatedComponent {
       cover: '//images.igdb.com/igdb/image/upload/t_cover_big/co1wz4.jpg',
       genres: ['Puzzle', 'Adventure'],
       platforms: ['PC', 'Switch'],
-      rating: 3.9,
+      rating: 3.2,
       release_date: '2018-07-22'
     },
     {
@@ -105,23 +105,5 @@ export class RatedComponent {
       release_date: '2014-02-25'
     }
   ];
-
-  isInCollection(gameId: number) {
-    return gameId % 2 === 0;
-  }
-
-  addQuitToCollection(gameId: number) {
-    gameId++;
-  }
-
-  formatRating(rating: number): string {
-    if (rating === 0) {
-      return '0.0';
-    } else if (rating === 10) {
-      return '10';
-    } else {
-      return rating.toFixed(1);
-    }
-  }
 
 }

@@ -1,12 +1,12 @@
 import {Component} from '@angular/core';
-import {DatePipe, NgForOf, NgIf} from '@angular/common';
+import {NgFor} from '@angular/common';
+import {CardComponent} from '../card/card.component';
 
 @Component({
   selector: 'app-trending',
   imports: [
-    NgForOf,
-    NgIf,
-    DatePipe
+    NgFor,
+    CardComponent
   ],
   templateUrl: './trending.component.html',
   styleUrl: './trending.component.css'
@@ -105,23 +105,5 @@ export class TrendingComponent {
       release_date: '2014-02-25'
     }
   ];
-
-  isInCollection(gameId: number) {
-    return gameId % 2 === 0;
-  }
-
-  addQuitToCollection(gameId: number) {
-    gameId++;
-  }
-
-  formatRating(rating: number): string {
-    if (rating === 0) {
-      return '0.0';
-    } else if (rating === 10) {
-      return '10';
-    } else {
-      return rating.toFixed(1);
-    }
-  }
 
 }
