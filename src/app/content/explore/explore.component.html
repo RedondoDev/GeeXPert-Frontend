@@ -1,0 +1,17 @@
+<div class="flex flex-col  text-[#F3F3F3] px-50 py-8 mt-[-25px]">
+  <div class="grid grid-cols-5 grid-rows-2 gap-6">
+    <div *ngFor="let game of games" class="relative group perspective">
+      <app-card [game]="game"></app-card>
+    </div>
+  </div>
+  <div class="flex justify-between mt-8">
+    <button class="w-25 py-1 border-1 rounded-[10px] text-[15px] font-sans hover:cursor-pointer hover:bg-[#F3F3F3]
+    hover:text-[#10172B] transition duration-300">
+      PREVIOUS
+    </button>
+    <button class="w-25 py-1 border-1 rounded-[10px] text-[15px] font-sans hover:cursor-pointer hover:bg-[#F3F3F3]
+    hover:text-[#10172B] transition duration-300">
+      NEXT
+    </button>
+  </div>
+</div>

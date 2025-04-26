@@ -1,13 +1,14 @@
-<div class="relative w-full h-full transition-transform duration-500 ease-in-out group-hover:rotate-y-180">
+<div
+  class="relative w-full h-full border-1 rounded-[10px] border-[#F3F3F3] transition-transform duration-500 ease-in-out group-hover:rotate-y-180">
   <div *ngIf="isInCollection(game.id)">
     <img routerLink="/error" src="assets/home/collection_label.webp" alt="Label Icon"
-         class="absolute top-0 right-2 w-8 h-8 z-1 hover:cursor-pointer hover:scale-115 transition-transform duration-300">
+         class="absolute top-[-1px] right-2 w-7 h-7 z-1 hover:cursor-pointer hover:scale-115 transition-transform duration-300">
     <!-- TODO: Que el routerLink lleve a /collection -->
   </div>
   <div *ngIf="isInCollection(game.id)">
     <div class="relative group">
       <img (click)="addToCollection()" src="assets/home/trash_icon.webp" alt="Label Icon"
-           class="absolute top-0 left-2 w-8 h-8 z-1 opacity-0 group-hover:opacity-100 hover:cursor-pointer
+           class="absolute top-[-1px] left-1 w-7 h-7 z-1 opacity-0 group-hover:opacity-100 hover:cursor-pointer
            hover:scale-115 transition-all duration-300">
     </div>
     <!-- TODO: Que borre de la collection -->
@@ -18,7 +19,11 @@
     class="absolute inset-0 text-transparent flex flex-col rounded-[10px] items-center justify-around
                  p-3 pt-4 opacity-0 group-hover:opacity-100 group-hover:text-[#F3F3F3] transition-all duration-400
                  backface-hidden *:rotate-y-180">
-    <h3 class="text-lg font-bold text-center">{{ game.name }}</h3>
+    <div class="inline-block w-45 h-20 mx-auto overflow-hidden truncate whitespace-nowrap" [title]="game.name">
+      <h3 class="text-lg font-bold text-center pt-2">
+        {{ game.name.length > 15 ? (game.name | slice:0:18) + '...' : game.name }}
+      </h3>
+    </div>
     <div class="flex flex-col justify-around h-100 w-full px-auto mx-auto text-center text-sm py-2">
       <b>Genres:</b>
       <div class="inline-block w-30 mb-2 mx-auto overflow-hidden truncate whitespace-nowrap"
@@ -33,7 +38,7 @@
       <div class="flex justify-around w-full px-auto mx-auto text-center text-sm">
         <div class="flex flex-col w-full">
           <b class="block">Release:</b>
-          <p class="mb-2">{{ game.release_date | date: "dd MMM, yyyy" }}</p>
+          <p class="mb-2">{{ game.first_release_date | date: "dd MMM, yyyy" }}</p>
         </div>
         <div class="flex flex-col w-full">
           <b class="block">Rating:</b>
@@ -49,26 +54,24 @@
       </button>
     </div>
     <div *ngIf="isInCollection(game.id)" class="flex justify-between w-full mb-2">
-      <div class="flex justify-around w-full text-sm">
+      <div
+        class="flex justify-around w-full text-sm **:hover:cursor-pointer **:hover:scale-110 **:transition-all **:duration-300">
         <button
           (click)="changeState(0)"
           [class.text-red-500]="currentState === 0"
-          [class.text-white]="currentState !== 0"
-          class="transition-colors duration-300">
+          [class.text-white]="currentState !== 0">
           Pending
         </button>
         <button
           (click)="changeState(1)"
           [class.text-yellow-400]="currentState === 1"
-          [class.text-white]="currentState !== 1"
-          class="transition-colors duration-300">
+          [class.text-white]="currentState !== 1">
           Playing
         </button>
         <button
           (click)="changeState(2)"
           [class.text-green-400]="currentState === 2"
-          [class.text-white]="currentState !== 2"
-          class="transition-colors duration-300">
+          [class.text-white]="currentState !== 2">
           Completed
         </button>
       </div>

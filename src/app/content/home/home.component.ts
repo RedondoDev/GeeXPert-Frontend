@@ -13,7 +13,7 @@ import {InfoComponent} from '../info/info.component';
     WelcomeComponent,
     TrendingComponent,
     RatedComponent,
-    InfoComponent
+    InfoComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'

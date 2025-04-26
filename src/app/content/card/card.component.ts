@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
-import {DatePipe, NgIf} from '@angular/common';
+import {DatePipe, NgIf, SlicePipe} from '@angular/common';
 import {RouterLink} from '@angular/router';
 
 @Component({
@@ -7,7 +7,8 @@ import {RouterLink} from '@angular/router';
   imports: [
     DatePipe,
     NgIf,
-    RouterLink
+    RouterLink,
+    SlicePipe
   ],
   templateUrl: './card.component.html',
   styleUrl: './card.component.css'

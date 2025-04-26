@@ -1,9 +1,24 @@
 <div class="flex flex-col bg-[#10172B] text-[#F3F3F3] px-50 mt-[-25px] pb-10">
   <h1 class="text-3xl font-sans font-light pb-10 text-center">TRENDING GAMES</h1>
   <div class="grid grid-cols-5 grid-rows-2 gap-6">
-    <div *ngFor="let game of games" class="relative group perspective">
-      <app-card [game]="game"></app-card>
+    <div *ngFor="let game of games; let i = index">
+      <ng-container *ngIf="i === games.length - 1; else normalCard">
+        <button routerLink="/explore" class="relative w-full h-full flex items-center justify-center group border-1
+          border-[#F3F3F3] rounded-[10px] hover:cursor-pointer">
+          <img [src]="game.cover" alt="More Games Cover"
+               class="w-full h-auto object-cover rounded-[10px] brightness-25
+                 group-hover:brightness-35 transition-all duration-300">
+          <span class="absolute text-white text-md font-bold transition-transform duration-300 group-hover:scale-115">
+              More<br>Games
+            </span>
+        </button>
+      </ng-container>
+      <ng-template #normalCard>
+        <div class="relative group perspective">
+          <app-card [game]="game"></app-card>
+        </div>
+      </ng-template>
     </div>
   </div>
 </div>
-<img src="assets/home/shillouettes.webp" alt="Shillouettes" class="w-full h-auto object-cover">
+<img src="assets/home/shillouettes.webp" alt="Shillouettes" class="w-full h-auto object-cover pb-4">
