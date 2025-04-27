@@ -3,8 +3,10 @@
     <h1 class="mb-0.5 text-2xl font-semibold"><a routerLink="/home">GEEXPERT</a></h1>
     <div *ngIf="isLoggedIn"
          class="flex items-center justify-between w-130 h-9 mr-50 pl-3 pr-1 border-1 rounded-[10px] border-[#F3F3F3]">
-      <input type="text" placeholder="Search" class="w-120 pb-0.5 border-none outline-none placeholder-gray-300">
-      <button class="w-8 h-8 rounded-[10px] hover:cursor-pointer hover:scale-120 hover:transition-all">
+      <input [(ngModel)]="searchQuery" type="text" placeholder="Search" (keydown.enter)="triggerSearch()"
+             class="w-120 pb-0.5 border-none outline-none placeholder-gray-300">
+      <button [routerLink]="['/search']" [queryParams]="{ name: searchQuery }"
+              class="w-8 h-8 rounded-[10px] hover:cursor-pointer hover:scale-120 hover:transition-all">
         <img class="m-auto" src="assets/form/search_icon.svg" alt="search icon">
       </button>
     </div>

@@ -4,6 +4,7 @@ import {SignupComponent} from './auth/signup/signup.component';
 import {HomeComponent} from './content/home/home.component';
 import {ErrorComponent} from './error/error.component';
 import {ExploreComponent} from './content/explore/explore.component';
+import {SearchComponent} from './content/search/search.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -11,5 +12,6 @@ export const routes: Routes = [
   { path: 'sign-up', component: SignupComponent },
   { path: 'home', component: HomeComponent },
   { path: 'explore', component: ExploreComponent },
+  { path: 'search', component: SearchComponent },
   { path: '**', component: ErrorComponent }
 ];

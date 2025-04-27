@@ -35,13 +35,13 @@ export class ExploreComponent implements OnInit {
   }
 
   loadMoreGames() {
-    this.isLoading = true; // Start loading
+    this.isLoading = true;
     this.gameService.getExploreGames(this.currentPage, this.pageSize).subscribe(data => {
       this.games = [...this.games, ...data];
       this.currentPage++;
-      this.isLoading = false; // Stop loading
+      this.isLoading = false;
     }, error => {
-      this.isLoading = false; // Handle error
+      this.isLoading = false;
       console.error('Error loading games:', error);
     });
   }

@@ -10,6 +10,7 @@ export class GameService {
 
   private trendingUrl = 'http://localhost:8080/games/trending';
   private topUrl = 'http://localhost:8080/games/top';
+  private exploreUrl = 'http://localhost:8080/games/trending?page=';
   private searchUrl = 'http://localhost:8080/games/search?name=';
 
   constructor(private http: HttpClient) {
@@ -44,8 +45,7 @@ export class GameService {
   }
 
   getExploreGames(page: number, size: number): Observable<Game[]> {
-    let url = `http://localhost:8080/games/trending?page=${page}&size=${size}`;
-    return this.http.get<Game[]>(url).pipe(
+    return this.http.get<Game[]>(this.exploreUrl + page + '&size=' + size).pipe(
       map((games) => games.map((game) => new Game(
         game.id,
         game.name,
@@ -58,17 +58,20 @@ export class GameService {
     );
   }
 
-  public getSearchedGames(): Observable<Game[]> {
-    return this.http.get<Game[]>(this.searchUrl).pipe(
-      map((games) => games.map((game) => new Game(
-        game.id,
-        game.name,
-        game.cover,
-        game.genres,
-        game.platforms,
-        game.rating,
-        game.first_release_date
-      )))
+  public getSearchedGames(name: string): Observable<Game[]> {
+    return this.http.get<Game[]>(this.searchUrl + name).pipe(
+      map((games) => games
+        .filter((game) => game.name && game.cover && game.genres?.length > 0 && game.platforms?.length > 0)
+        .map((game) => new Game(
+          game.id,
+          game.name,
+          game.cover,
+          game.genres,
+          game.platforms,
+          game.rating,
+          game.first_release_date
+        ))
+      )
     );
   }
 
