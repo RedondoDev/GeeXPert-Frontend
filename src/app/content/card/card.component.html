@@ -1,11 +1,11 @@
 <div
   class="relative w-full h-full border-1 rounded-[10px] border-[#F3F3F3] transition-transform duration-500 ease-in-out group-hover:rotate-y-180">
-  <div *ngIf="isInCollection(game.id)">
+  <div *ngIf="isLoggedIn && isInCollection(game.id)">
     <img routerLink="/error" src="assets/home/collection_label.webp" alt="Label Icon"
          class="absolute top-[-1px] right-2 w-7 h-7 z-1 hover:cursor-pointer hover:scale-115 transition-transform duration-300">
     <!-- TODO: Que el routerLink lleve a /collection -->
   </div>
-  <div *ngIf="isInCollection(game.id)">
+  <div *ngIf="isLoggedIn && isInCollection(game.id)">
     <div class="relative group">
       <img (click)="addToCollection()" src="assets/home/trash_icon.webp" alt="Label Icon"
            class="absolute top-[-1px] left-1 w-7 h-7 z-1 opacity-0 group-hover:opacity-100 hover:cursor-pointer
@@ -46,14 +46,14 @@
         </div>
       </div>
     </div>
-    <div *ngIf="!isInCollection(game.id)">
+    <div *ngIf="isLoggedIn && !isInCollection(game.id)">
       <button (click)="addToCollection()"
               class="bg-[#10172B] text-[#F3F3F3] border-1 rounded-[10px] text-[12px] mx-6 px-2 py-1 mb-1
                            hover:cursor-pointer hover:scale-105 transition-transform duration-300">
         ADD TO <br> COLLECTION
       </button>
     </div>
-    <div *ngIf="isInCollection(game.id)" class="flex justify-between w-full mb-2">
+    <div *ngIf="isLoggedIn && isInCollection(game.id)" class="flex justify-between w-full mb-2">
       <div
         class="flex justify-around w-full text-sm **:hover:cursor-pointer **:hover:scale-110 **:transition-all **:duration-300">
         <button

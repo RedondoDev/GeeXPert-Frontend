@@ -1,6 +1,7 @@
-import {ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {DatePipe, NgIf, SlicePipe} from '@angular/common';
 import {RouterLink} from '@angular/router';
+import {SigninService} from '../../services/auth/signin.service';
 
 @Component({
   selector: 'app-card',
@@ -13,17 +14,27 @@ import {RouterLink} from '@angular/router';
   templateUrl: './card.component.html',
   styleUrl: './card.component.css'
 })
-export class CardComponent implements OnInit {
+export class CardComponent implements OnInit, OnDestroy {
 
   @Input() game: any;
   currentState: number = 0;
+  isLoggedIn: boolean = false;
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(private cdr: ChangeDetectorRef, private signInService: SigninService) {}
 
   ngOnInit() {
+    this.signInService.currentUserSignedIn.subscribe({
+      next: (isLoggedIn) => {
+        this.isLoggedIn = isLoggedIn;
+      }
+    });
     if (this.game.status) {
       this.currentState = this.game.status;
     }
+  }
+
+  ngOnDestroy() {
+    this.signInService.currentUserSignedIn.unsubscribe();
   }
 
   changeState(newState: number) {
