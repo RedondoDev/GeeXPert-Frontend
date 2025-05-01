@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {Router, RouterLink} from '@angular/router';
 import {AbstractControl, FormBuilder, ReactiveFormsModule, ValidationErrors, Validators} from '@angular/forms';
 import {NgIf} from '@angular/common';
+import {SignupService} from '../../services/auth/signup.service';
 
 @Component({
   selector: 'app-signup',
@@ -12,8 +13,9 @@ import {NgIf} from '@angular/common';
 export class SignupComponent {
 
   signupForm;
+  signupError: string = '';
 
-  constructor(private formBuilder: FormBuilder, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private signupService: SignupService) {
     this.signupForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(16),
         Validators.pattern('^[a-zA-Z0-9]+$')]],
@@ -40,14 +42,22 @@ export class SignupComponent {
     return this.signupForm.controls.confirm_password;
   }
 
-  signup() {
+   signup() {
     if (this.signupForm.valid) {
-      console.log("Llamar al servicio de signup")
-      this.router.navigateByUrl('/sign-in');
-      this.signupForm.reset();
+      this.signupService.signup(this.signupForm.value).subscribe({
+        next: () => {
+          alert('Signup successful!');
+          this.router.navigateByUrl('/sign-in');
+          this.signupForm.reset();
+        },
+        error: (error) => {
+          console.error('Signup error:', error);
+          this.signupError = 'Signup failed. Please try again.';
+        }
+      });
     } else {
       this.signupForm.markAllAsTouched();
-      alert("Error al ingresar los datos");
+      alert('Please correct the errors in the form.');
     }
   }
 

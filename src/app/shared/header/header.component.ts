@@ -14,7 +14,7 @@ import {FormsModule} from '@angular/forms';
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnInit {
 
   @ViewChild('searchButton', {static: false}) searchButton!: ElementRef<HTMLButtonElement>;
   isLoggedIn: boolean = false;
@@ -38,13 +38,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   signOut(): void {
-    this.signinService.currentUserSignedIn.next(false);
-    this.signinService.currentUserData.next({id: 0, email: ''});
-    this.isLoggedIn = false;
-  }
-
-  ngOnDestroy(): void {
-    this.signinService.currentUserSignedIn.unsubscribe();
+    this.signinService.logout();
+    this.router.navigate(['/home']);
   }
 
 }

@@ -14,13 +14,14 @@ import {SigninService} from '../../services/auth/signin.service';
   templateUrl: './card.component.html',
   styleUrl: './card.component.css'
 })
-export class CardComponent implements OnInit, OnDestroy {
+export class CardComponent implements OnInit {
 
   @Input() game: any;
   currentState: number = 0;
   isLoggedIn: boolean = false;
 
-  constructor(private cdr: ChangeDetectorRef, private signInService: SigninService) {}
+  constructor(private cdr: ChangeDetectorRef, private signInService: SigninService) {
+  }
 
   ngOnInit() {
     this.signInService.currentUserSignedIn.subscribe({
@@ -31,10 +32,6 @@ export class CardComponent implements OnInit, OnDestroy {
     if (this.game.status) {
       this.currentState = this.game.status;
     }
-  }
-
-  ngOnDestroy() {
-    this.signInService.currentUserSignedIn.unsubscribe();
   }
 
   changeState(newState: number) {

@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
+import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
 import {SigninRequest} from './signinRequest';
-import {catchError, Observable, throwError, BehaviorSubject, tap} from 'rxjs';
+import {catchError, Observable, throwError, BehaviorSubject, tap, map} from 'rxjs';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {User} from './user';
+import {isPlatformBrowser} from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -10,19 +10,34 @@ import {User} from './user';
 export class SigninService {
 
   currentUserSignedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  currentUserData: BehaviorSubject<User> = new BehaviorSubject<User>({id: 0, email: ''});
+  currentUserData: BehaviorSubject<String> = new BehaviorSubject<String>("");
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) {
+    if (isPlatformBrowser(this.platformId)) {
+      const token = sessionStorage.getItem("token");
+      this.currentUserSignedIn = new BehaviorSubject<boolean>(token != null);
+      this.currentUserData = new BehaviorSubject<String>(token || "");
+    }
   }
 
-  signin(credentials: SigninRequest): Observable<User> {
-    return this.httpClient.get<User>('app/assets/data.json').pipe(
-      tap((userData: User) => {
-        this.currentUserData.next(userData);
+  signin(credentials: SigninRequest): Observable<any> {
+    return this.httpClient.post<any>('http://localhost:8080/auth/signin', credentials).pipe(
+      tap((userData) => {
+        sessionStorage.setItem("token", userData.token);
+        this.currentUserData.next(userData.token);
         this.currentUserSignedIn.next(true);
       }),
+      map((userData) => userData.token),
       catchError(this.handleError)
     );
+  }
+
+  logout(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      sessionStorage.removeItem("token");
+    }
+    this.currentUserSignedIn.next(false);
+    this.currentUserData.next("");
   }
 
   private handleError(error: HttpErrorResponse) {
@@ -34,12 +49,16 @@ export class SigninService {
     return throwError(() => new Error('Something bad happened. Please try again later.'));
   }
 
-  get userData(): Observable<User> {
+  get userData(): Observable<String> {
     return this.currentUserData.asObservable();
   }
 
   get isUserSignedIn(): Observable<boolean> {
     return this.currentUserSignedIn.asObservable();
+  }
+
+  get userToken(): String {
+    return this.currentUserData.getValue();
   }
 
 }

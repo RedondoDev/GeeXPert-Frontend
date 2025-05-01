@@ -10,7 +10,7 @@ export class GameService {
 
   private trendingUrl = 'http://localhost:8080/games/trending';
   private topUrl = 'http://localhost:8080/games/top';
-  private exploreUrl = 'http://localhost:8080/games/trending?page=';
+  private exploreUrl = 'http://localhost:8080/games/explore?page=';
   private searchUrl = 'http://localhost:8080/games/search?name=';
 
   constructor(private http: HttpClient) {
