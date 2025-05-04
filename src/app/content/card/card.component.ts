@@ -46,7 +46,13 @@ export class CardComponent implements OnInit {
     this.userGameService.getUserGameCollection().subscribe({
       next: (games) => {
         this.userCollection = games;
-        this.isGameInCollection = this.isInCollection(this.game.id);
+        const userGame = this.userCollection.find(userGame => userGame.userGameId === this.game.id);
+        if (userGame) {
+          this.currentState = this.mapStateToNumber(userGame.state);
+          this.isGameInCollection = true;
+        } else {
+          this.isGameInCollection = false;
+        }
         this.cdr.detectChanges();
       },
       error: (error) => {
@@ -55,8 +61,13 @@ export class CardComponent implements OnInit {
     });
   }
 
-  isInCollection(gameId: number): boolean {
-    return this.userCollection.some((userGame: any) => userGame.userGameId === gameId);
+  private mapStateToNumber(state: string): number {
+    const stateMapping: { [key: string]: number } = {
+      'PENDING': 0,
+      'PLAYING': 1,
+      'COMPLETED': 2
+    };
+    return stateMapping[state] ?? 0;
   }
 
   addToCollection() {
@@ -85,6 +96,12 @@ export class CardComponent implements OnInit {
   }
 
   changeState(newState: number) {
+    const stateMapping = {
+      0: 'PENDING',
+      1: 'PLAYING',
+      2: 'COMPLETED'
+    };
+
     const userGame = this.userCollection.find(userGame => userGame.userGameId === this.game.id);
 
     if (!userGame) {
@@ -92,9 +109,15 @@ export class CardComponent implements OnInit {
       return;
     }
 
-    this.userGameService.updateGameStatus(userGame.userGameId, newState).subscribe({
+    const stateString = stateMapping[newState as keyof typeof stateMapping];
+    if (!stateString) {
+      console.error('Invalid state:', newState);
+      return;
+    }
+
+    this.userGameService.updateGameStatus(userGame.userGameId, stateString).subscribe({
       next: () => {
-        console.log(`Game state updated to ${newState} for game ID:`, userGame.userGameId);
+        console.log(`Game state updated to ${stateString} for game ID:`, userGame.userGameId);
         this.currentState = newState;
         this.cdr.detectChanges();
       },

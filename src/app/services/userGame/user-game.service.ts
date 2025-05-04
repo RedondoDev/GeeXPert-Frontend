@@ -20,8 +20,8 @@ export class UserGameService {
     return this.http.get<any[]>(`${this.baseUrl}/games`);
   }
 
-  updateGameStatus(gameId: number, status: number): Observable<any> {
-    return this.http.put(`${this.baseUrl}/${gameId}/state`, status);
+  updateGameStatus(gameId: number, status: string): Observable<any> {
+    return this.http.put(`${this.baseUrl}/${gameId}/state`, status, {responseType: 'text'});
   }
 
   removeGameFromCollection(gameId: number): Observable<string> {
