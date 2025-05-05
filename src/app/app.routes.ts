@@ -5,13 +5,16 @@ import {HomeComponent} from './content/home/home.component';
 import {ErrorComponent} from './error/error.component';
 import {ExploreComponent} from './content/explore/explore.component';
 import {SearchComponent} from './content/search/search.component';
+import {CollectionComponent} from './content/collection/collection.component';
+import {AuthGuard} from './auth/redirector.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'sign-in', component: SigninComponent },
   { path: 'sign-up', component: SignupComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'explore', component: ExploreComponent },
-  { path: 'search', component: SearchComponent },
+  { path: 'explore', component: ExploreComponent, canActivate: [AuthGuard] },
+  { path: 'search', component: SearchComponent, canActivate: [AuthGuard] },
+  { path: 'collection', component: CollectionComponent, canActivate: [AuthGuard] },
   { path: '**', component: ErrorComponent }
 ];
