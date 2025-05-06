@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {DatePipe, NgIf, SlicePipe} from '@angular/common';
-import {RouterLink} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {SigninService} from '../../services/auth/signin.service';
 import {UserGameService} from '../../services/userGame/user-game.service';
 
@@ -24,7 +24,7 @@ export class CardComponent implements OnInit {
   isGameInCollection: boolean = false;
 
   constructor(private cdr: ChangeDetectorRef, private signInService: SigninService,
-              private userGameService: UserGameService) {
+              private userGameService: UserGameService, protected router: Router,) {
   }
 
   ngOnInit() {
@@ -46,6 +46,7 @@ export class CardComponent implements OnInit {
     this.userGameService.getUserGameCollection().subscribe({
       next: (games) => {
         this.userCollection = games;
+        console.log('User collection:', this.userCollection);
         const userGame = this.userCollection.find(userGame => userGame.userGameId === this.game.id);
         if (userGame) {
           this.currentState = this.mapStateToNumber(userGame.state);
@@ -74,7 +75,7 @@ export class CardComponent implements OnInit {
     const gamePayload = {
       id: this.game.id,
       name: this.game.name,
-      releaseDate: this.game.first_release_date || null,
+      first_release_date: this.game.first_release_date || null,
       genres: this.game.genres || [],
       platforms: this.game.platforms || [],
       cover: this.game.cover || null,
@@ -151,14 +152,8 @@ export class CardComponent implements OnInit {
     });
   }
 
-  formatRating(rating: number): string {
-    if (rating === 0) {
-      return '0.0';
-    } else if (rating === 10) {
-      return '10';
-    } else {
-      return rating.toFixed(1);
-    }
+  formatRating(rating: number | undefined): string {
+    return rating !== undefined && rating !== null ? rating.toFixed(1) : 'N/A';
   }
 
 }

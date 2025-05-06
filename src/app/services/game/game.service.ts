@@ -75,4 +75,8 @@ export class GameService {
     );
   }
 
+  public getGameById(gameId: number): Observable<Game> {
+    return this.http.get<Game>(`http://localhost:8080/games/${gameId}`);
+  }
+
 }

@@ -1,6 +1,6 @@
 <div
   class="relative w-full h-full border-1 rounded-[10px] border-[#F3F3F3] transition-transform duration-500 ease-in-out group-hover:rotate-y-180">
-  <div *ngIf="isLoggedIn && isGameInCollection">
+  <div *ngIf="isLoggedIn && isGameInCollection && !this.router.url.includes('collection')">
     <img routerLink="/collection" src="assets/home/collection_label.webp" alt="Label Icon"
          class="absolute top-[-1px] right-2 w-7 h-7 z-1 hover:cursor-pointer hover:scale-115 transition-transform duration-300">
   </div>
@@ -25,14 +25,14 @@
     <div class="flex flex-col justify-around h-100 w-full px-auto mx-auto text-center text-sm py-2">
       <b>Genres:</b>
       <div class="inline-block w-30 mb-2 mx-auto overflow-hidden truncate whitespace-nowrap"
-           [title]="game.genres.join(', ')">
-        <span>{{ game.genres.join(', ') }}</span>
+           [title]="game.genres?.join(', ')">
+        <span>{{ game.genres?.join(', ') || 'N/A' }}</span>
       </div>
       <b>Platforms:</b>
       <div class="inline-block w-30 mb-2 mx-auto overflow-hidden truncate whitespace-nowrap"
-           [title]="game.platforms.join(', ')">
-        <span>{{ game.platforms.join(', ') }}</span>
-      </div>
+     [title]="game.platforms?.join(', ')">
+  <span>{{ game.platforms?.join(', ') || 'N/A' }}</span>
+</div>
       <div class="flex justify-around w-full px-auto mx-auto text-center text-sm">
         <div class="flex flex-col w-full">
           <b class="block">Release:</b>

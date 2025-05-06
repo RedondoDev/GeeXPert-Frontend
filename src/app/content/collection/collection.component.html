@@ -1,6 +1,6 @@
 <div class="flex flex-col">
   <div class="flex justify-around px-20">
-    <div class="flex flex-col px-10 py-15 **:font-sans **:text-[#F3F3F3]">
+    <div class="flex flex-col px-10 py-15 **:text-[#F3F3F3]">
       <h1 class="text-[32px]"><b>Your Game Collection -</b> <i>Every hero needs<br>a quest log.</i></h1>
       <p class="text-[18px]/9 pt-5">Keep track of your pending, playing and completed games as you embark on<br>
         epic adventures across different worlds. From indie gems to AAA titles, make<br>
@@ -8,37 +8,60 @@
     </div>
     <img src="assets/collection/crash-bandicoot.webp" alt="Crash Bandicoot image" class="w-130">
   </div>
-  <div class="flex flex-col px-30 gap-8">
-    <details class="border-2 border-[#F3F3F3] rounded-[5px]">
-      <summary><span class="text-[#FF4A4A] text-[22px]">PENDING</span></summary>
-      <div class="grid grid-cols-5 gap-6 p-6">
-        <!-- TODO: Add a loop to display the games in the pending collection -->
+  <div *ngIf="pendingGames.length || playingGames.length || completedGames.length; else noGames">
+    <div class="flex flex-col px-30 gap-8">
+      <details class="border-2 border-[#F3F3F3] rounded-[5px]">
+        <summary><span class="text-[#FF4A4A] text-[22px]">PENDING</span></summary>
+        <div class="grid grid-cols-5 gap-6 p-6">
+          <div *ngFor="let game of pendingGames" class="game-card relative group">
+            <app-card [game]="game"></app-card>
+          </div>
+        </div>
+      </details>
+      <details class="border-2 border-[#F3F3F3] rounded-[5px]">
+        <summary><span class="text-[#FFA617] text-[22px]">PLAYING</span></summary>
+        <div class="grid grid-cols-5 gap-6 p-6">
+          <div *ngFor="let game of playingGames" class="game-card relative group">
+            <app-card [game]="game"></app-card>
+          </div>
+        </div>
+      </details>
+      <details class="border-2 border-[#F3F3F3] rounded-[5px]">
+        <summary><span class="text-[#84FF74] text-[22px]">COMPLETED</span></summary>
+        <div class="grid grid-cols-5 gap-6 p-6">
+          <div *ngFor="let game of completedGames" class="game-card relative group">
+            <app-card [game]="game"></app-card>
+          </div>
+        </div>
+      </details>
+    </div>
+    <div class="flex justify-around py-15">
+      <img src="assets/collection/cl4ptrap.webp" alt="Claptr4p image" class="w-110">
+      <div class="flex flex-col py-20 h-auto **:font-sans justify-around gap-3">
+        <h2 class="text-[24px] font-bold text-[#F3F3F3] text-center">Our AI Assistant</h2>
+        <p class="text-[18px]/8 text-[#F3F3F3] mb-[5px]">Click the button to recieve personalized game recommendations based on<br>
+          your tastes. I know who he is... Just trust me. You're about to discover<br>
+          something special, something that feels like it was chosen just for you. Go<br>
+          ahead, give it a try you won't regret it.</p>
+        <button class="px-2 py-1 w-40 bg-[#DAA741] font-bold text-[14px] text-black mx-auto border-1 rounded-[5px]
+        border-white hover:cursor-pointer hover:scale-105 hover:bg-[#e8ac2a] hover:transition-all hover:duration-200">
+          GET MY<br>RECOMMENDATIONS
+        </button>
       </div>
-    </details>
-    <details class="border-2 border-[#F3F3F3] rounded-[5px]">
-      <summary><span class="text-[#FFA617] text-[22px]">PLAYING</span></summary>
-      <div class="grid grid-cols-5 gap-6 p-6">
-        <!-- TODO: Add a loop to display the games in the pending collection -->
-      </div>
-    </details>
-    <details class="border-2 border-[#F3F3F3] rounded-[5px]">
-      <summary><span class="text-[#84FF74] text-[22px]">COMPLETED</span></summary>
-      <div class="grid grid-cols-5 gap-6 p-6">
-        <!-- TODO: Add a loop to display the games in the pending collection -->
-      </div>
-    </details>
-  </div>
-  <div class="flex justify-around py-15">
-    <img src="assets/collection/cl4ptrap.webp" alt="Claptr4p image" class="w-110">
-    <div class="flex flex-col py-20 h-auto **:font-sans justify-around">
-      <h2 class="text-[24px] font-bold text-[#F3F3F3] text-center">Our AI Assistant</h2>
-      <p class="text-[#F3F3F3]">Click the button to recieve personalized game recommendations based on<br>
-        your tastes. I know who he is... Just trust me. You're about to discover<br>
-        something special, something that feels like it was chosen just for you. Go<br>
-        ahead, give it a try you won't regret it.</p>
-      <button class="px-2 py-1 w-40 bg-[#DAA741] font-bold text-[14px] text-black border-2 rounded-[5px]">
-        GET MY<br>RECOMMENDATIONS
-      </button>
     </div>
   </div>
+  <ng-template #noGames>
+    <div class="flex items-center justify-around h-75 bg-[#1b243b] border-t-1 border-[#F3F3F3]">
+      <button routerLink="/explore" class="px-2 py-1 w-40 bg-[#DAA741] font-bold text-[14px] text-black border-1 rounded-[5px]
+        border-white hover:cursor-pointer hover:scale-105 hover:bg-[#e8ac2a] hover:transition-all hover:duration-200">
+        GO TO <br> EXPLORE GAMES
+      </button>
+      <div class="flex flex-col gap-4">
+        <h1 class="text-[32px] text-[#F3F3F3] text-center font-sans font-semibold"><i>No games in your collection
+          yet.</i></h1>
+        <p class="text-[18px] text-[#F3F3F3]">Start adding games to your collection and track your gaming
+          journey!</p>
+      </div>
+    </div>
+  </ng-template>
 </div>
