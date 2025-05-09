@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NgIf} from '@angular/common';
 import {Router, RouterLink} from '@angular/router';
 import {SigninService} from '../../services/auth/signin.service';
@@ -16,7 +16,6 @@ import {FormsModule} from '@angular/forms';
 })
 export class HeaderComponent implements OnInit {
 
-  @ViewChild('searchButton', {static: false}) searchButton!: ElementRef<HTMLButtonElement>;
   isLoggedIn: boolean = false;
   searchQuery: string = '';
 
@@ -34,6 +33,7 @@ export class HeaderComponent implements OnInit {
   triggerSearch(): void {
     if (this.searchQuery.trim()) {
       this.router.navigate(['/search'], {queryParams: {name: this.searchQuery}});
+      this.searchQuery = '';
     }
   }
 

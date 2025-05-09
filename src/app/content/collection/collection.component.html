@@ -14,7 +14,7 @@
         <summary><span class="text-[#FF4A4A] text-[22px]">PENDING</span></summary>
         <div class="grid grid-cols-5 gap-6 p-6">
           <div *ngFor="let game of pendingGames" class="game-card relative group">
-            <app-card [game]="game"></app-card>
+            <app-card [game]="game" (collectionUpdated)="updateGameLists($event)"></app-card>
           </div>
         </div>
       </details>
@@ -22,7 +22,7 @@
         <summary><span class="text-[#FFA617] text-[22px]">PLAYING</span></summary>
         <div class="grid grid-cols-5 gap-6 p-6">
           <div *ngFor="let game of playingGames" class="game-card relative group">
-            <app-card [game]="game"></app-card>
+            <app-card [game]="game" (collectionUpdated)="updateGameLists($event)"></app-card>
           </div>
         </div>
       </details>
@@ -30,7 +30,7 @@
         <summary><span class="text-[#84FF74] text-[22px]">COMPLETED</span></summary>
         <div class="grid grid-cols-5 gap-6 p-6">
           <div *ngFor="let game of completedGames" class="game-card relative group">
-            <app-card [game]="game"></app-card>
+            <app-card [game]="game" (collectionUpdated)="updateGameLists($event)"></app-card>
           </div>
         </div>
       </details>
@@ -39,7 +39,8 @@
       <img src="assets/collection/cl4ptrap.webp" alt="Claptr4p image" class="w-110">
       <div class="flex flex-col py-20 h-auto **:font-sans justify-around gap-3">
         <h2 class="text-[24px] font-bold text-[#F3F3F3] text-center">Our AI Assistant</h2>
-        <p class="text-[18px]/8 text-[#F3F3F3] mb-[5px]">Click the button to recieve personalized game recommendations based on<br>
+        <p class="text-[18px]/8 text-[#F3F3F3] mb-[5px]">Click the button to recieve personalized game recommendations
+          based on<br>
           your tastes. I know who he is... Just trust me. You're about to discover<br>
           something special, something that feels like it was chosen just for you. Go<br>
           ahead, give it a try you won't regret it.</p>

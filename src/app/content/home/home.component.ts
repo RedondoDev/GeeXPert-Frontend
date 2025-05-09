@@ -5,7 +5,6 @@ import {TrendingComponent} from '../trending/trending.component';
 import {RatedComponent} from '../rated/rated.component';
 import {InfoComponent} from '../info/info.component';
 
-
 @Component({
   selector: 'app-home',
   imports: [

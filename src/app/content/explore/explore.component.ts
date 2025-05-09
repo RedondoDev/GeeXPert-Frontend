@@ -1,12 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {InfoComponent} from "../info/info.component";
-import {RatedComponent} from "../rated/rated.component";
-import {TrendingComponent} from "../trending/trending.component";
-import {WelcomeComponent} from "../welcome/welcome.component";
 import {CardComponent} from '../card/card.component';
 import {NgForOf, NgIf} from '@angular/common';
-import {RouterLink} from '@angular/router';
-import {Observable} from 'rxjs';
 import {Game} from '../../models/game';
 import {GameService} from '../../services/game/game.service';
 

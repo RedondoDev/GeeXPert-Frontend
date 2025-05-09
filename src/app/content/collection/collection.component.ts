@@ -1,8 +1,7 @@
-// src/app/content/collection/collection.component.ts
 import {GameService} from '../../services/game/game.service';
 import {Game} from '../../models/game';
 import {NgForOf, NgIf} from '@angular/common';
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {CardComponent} from '../card/card.component';
 import {RouterLink} from '@angular/router';
 import {UserGameService} from '../../services/userGame/user-game.service';
@@ -25,7 +24,7 @@ export class CollectionComponent implements OnInit {
   playingGames: Game[] = [];
   completedGames: Game[] = [];
 
-  constructor(private userGameService: UserGameService, private gameService: GameService) {
+  constructor(private userGameService: UserGameService, private gameService: GameService, private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit() {
@@ -63,6 +62,33 @@ export class CollectionComponent implements OnInit {
         console.error('Error loading user games:', error);
       }
     });
+  }
+
+  updateGameLists(event: { previousState?: number, newState?: number, gameId: number }) {
+    let game: Game | undefined;
+
+    if (event.previousState === 0) {
+      game = this.pendingGames.find(g => g.id === event.gameId);
+      this.pendingGames = this.pendingGames.filter(g => g.id !== event.gameId);
+    } else if (event.previousState === 1) {
+      game = this.playingGames.find(g => g.id === event.gameId);
+      this.playingGames = this.playingGames.filter(g => g.id !== event.gameId);
+    } else if (event.previousState === 2) {
+      game = this.completedGames.find(g => g.id === event.gameId);
+      this.completedGames = this.completedGames.filter(g => g.id !== event.gameId);
+    }
+
+    if (game && event.newState !== -1) {
+      if (event.newState === 0) {
+        this.pendingGames = [...this.pendingGames, game];
+      } else if (event.newState === 1) {
+        this.playingGames = [...this.playingGames, game];
+      } else if (event.newState === 2) {
+        this.completedGames = [...this.completedGames, game];
+      }
+    }
+
+    this.cdr.detectChanges();
   }
 
 }

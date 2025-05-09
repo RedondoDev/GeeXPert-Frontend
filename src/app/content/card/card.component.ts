@@ -1,6 +1,6 @@
-import {ChangeDetectorRef, Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {DatePipe, NgIf, SlicePipe} from '@angular/common';
-import {ActivatedRoute, Router, RouterLink} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {SigninService} from '../../services/auth/signin.service';
 import {UserGameService} from '../../services/userGame/user-game.service';
 
@@ -22,6 +22,7 @@ export class CardComponent implements OnInit {
   isLoggedIn: boolean = false;
   userCollection: any[] = [];
   isGameInCollection: boolean = false;
+  @Output() collectionUpdated = new EventEmitter<{ previousState: number, newState: number, gameId: number }>();
 
   constructor(private cdr: ChangeDetectorRef, private signInService: SigninService,
               private userGameService: UserGameService, protected router: Router,) {
@@ -46,7 +47,6 @@ export class CardComponent implements OnInit {
     this.userGameService.getUserGameCollection().subscribe({
       next: (games) => {
         this.userCollection = games;
-        console.log('User collection:', this.userCollection);
         const userGame = this.userCollection.find(userGame => userGame.userGameId === this.game.id);
         if (userGame) {
           this.currentState = this.mapStateToNumber(userGame.state);
@@ -101,29 +101,21 @@ export class CardComponent implements OnInit {
       0: 'PENDING',
       1: 'PLAYING',
       2: 'COMPLETED'
-    };
+    } as const;
 
     const userGame = this.userCollection.find(userGame => userGame.userGameId === this.game.id);
 
-    if (!userGame) {
-      console.error('Game not found in user collection:', this.game.id);
-      return;
-    }
+    if (!userGame) return;
 
     const stateString = stateMapping[newState as keyof typeof stateMapping];
-    if (!stateString) {
-      console.error('Invalid state:', newState);
-      return;
-    }
+    if (!stateString) return;
 
     this.userGameService.updateGameStatus(userGame.userGameId, stateString).subscribe({
       next: () => {
-        console.log(`Game state updated to ${stateString} for game ID:`, userGame.userGameId);
+        console.log('Game status updated:', stateString);
+        const previousState = this.currentState;
         this.currentState = newState;
-        this.cdr.detectChanges();
-      },
-      error: (error) => {
-        console.error('Error updating game state:', error);
+        this.collectionUpdated.emit({previousState, newState, gameId: this.game.id});
       }
     });
   }
@@ -131,29 +123,24 @@ export class CardComponent implements OnInit {
   removeFromCollection() {
     const userGame = this.userCollection.find(userGame => userGame.userGameId === this.game.id);
 
-    if (!userGame) {
-      console.error('Game not found in user collection:', this.game.id);
-      console.log('Current user collection:', this.userCollection);
-      return;
-    }
-
-    console.log('Removing game with database ID:', userGame.userGameId);
+    if (!userGame) return;
 
     this.userGameService.removeGameFromCollection(userGame.userGameId).subscribe({
-      next: (response) => {
-        console.log('Game removed from collection:', response);
+      next: () => {
+        console.log('Game removed from collection:', userGame.userGameId);
         this.userCollection = this.userCollection.filter(g => g.userGameId !== userGame.userGameId);
         this.isGameInCollection = false;
-        this.cdr.detectChanges();
-      },
-      error: (error) => {
-        console.error('Error removing game from collection:', error);
+        this.collectionUpdated.emit({
+          previousState: this.currentState,
+          newState: -1,
+          gameId: this.game.id
+        });
       }
     });
   }
 
   formatRating(rating: number | undefined): string {
-    return rating !== undefined && rating !== null ? rating.toFixed(1) : 'N/A';
+    return rating !== undefined && rating !== null ? rating.toFixed(1) : '0.0';
   }
 
 }
