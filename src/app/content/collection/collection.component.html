@@ -9,30 +9,52 @@
     <img src="assets/collection/crash-bandicoot.webp" alt="Crash Bandicoot image" class="w-130">
   </div>
   <div *ngIf="pendingGames.length || playingGames.length || completedGames.length; else noGames">
-    <div class="flex flex-col px-30 gap-8">
-      <details class="border-2 border-[#F3F3F3] rounded-[5px]">
-        <summary><span class="text-[#FF4A4A] text-[22px]">PENDING</span></summary>
-        <div class="grid grid-cols-5 gap-6 p-6">
+    <div class="flex flex-col px-30 gap-8 **:">
+      <details [attr.open]="pendingGames.length > 0 ? true : null" class="border-2 border-[#F3F3F3] rounded-[5px] bg-[#1b243b]">
+        <summary class="list-none border-b-2 border-[#F3F3F3] hover:cursor-pointer hover:bg-[#202940] hover:rounded-[5px]">
+          <span class="text-[#FF4A4A] text-[22px] pl-3">PENDING</span>
+        </summary>
+        <div *ngIf="pendingGames.length; else noPendingGames" class="grid grid-cols-5 gap-6 p-6">
           <div *ngFor="let game of pendingGames" class="game-card relative group">
             <app-card [game]="game" (collectionUpdated)="updateGameLists($event)"></app-card>
           </div>
         </div>
+        <ng-template #noPendingGames>
+          <div class="flex items-center justify-center h-75 bg-[#1b243b] border-t-1 border-[#F3F3F3]">
+            <p class="text-[22px] text-[#F3F3F3]"><i>No pending games in your collection.</i></p>
+          </div>
+        </ng-template>
       </details>
-      <details class="border-2 border-[#F3F3F3] rounded-[5px]">
-        <summary><span class="text-[#FFA617] text-[22px]">PLAYING</span></summary>
-        <div class="grid grid-cols-5 gap-6 p-6">
+      <details [attr.open]="playingGames.length > 0 ? true : null" class="border-2 border-[#F3F3F3] rounded-[5px] bg-[#1b243b]">
+        <summary class="list-none border-b-2 border-[#F3F3F3] hover:cursor-pointer hover:bg-[#202940] hover:rounded-[5px]">
+          <span class="text-[#FFA617] text-[22px] pl-3">PLAYING</span>
+        </summary>
+        <div *ngIf="playingGames.length; else noPlayingGames" class="grid grid-cols-5 gap-6 p-6">
           <div *ngFor="let game of playingGames" class="game-card relative group">
             <app-card [game]="game" (collectionUpdated)="updateGameLists($event)"></app-card>
           </div>
         </div>
+        <ng-template #noPlayingGames>
+          <div class="flex items-center justify-center h-75 bg-[#1b243b] border-t-1 border-[#F3F3F3]">
+            <p class="text-[22px] text-[#F3F3F3]"><i>No playing games in your collection.</i></p>
+          </div>
+        </ng-template>
       </details>
-      <details class="border-2 border-[#F3F3F3] rounded-[5px]">
-        <summary><span class="text-[#84FF74] text-[22px]">COMPLETED</span></summary>
-        <div class="grid grid-cols-5 gap-6 p-6">
+      <details [attr.open]="completedGames.length > 0 ? true : null"
+               class="border-2 border-[#F3F3F3] rounded-[5px] bg-[#1b243b]">
+        <summary class="list-none border-b-2 border-[#F3F3F3] hover:cursor-pointer hover:bg-[#202940] hover:rounded-[5px]">
+          <span class="text-[#84FF74] text-[22px] pl-3">COMPLETED</span>
+        </summary>
+        <div *ngIf="completedGames.length; else noCompletedGames" class="grid grid-cols-5 gap-6 p-6">
           <div *ngFor="let game of completedGames" class="game-card relative group">
             <app-card [game]="game" (collectionUpdated)="updateGameLists($event)"></app-card>
           </div>
         </div>
+        <ng-template #noCompletedGames>
+          <div class="flex items-center justify-center h-75 bg-[#1b243b] border-t-1 border-[#F3F3F3]">
+            <p class="text-[22px] text-[#F3F3F3]"><i>No completed games in your collection.</i></p>
+          </div>
+        </ng-template>
       </details>
     </div>
     <div class="flex justify-around py-15">
