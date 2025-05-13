@@ -6,6 +6,7 @@ import {CardComponent} from '../card/card.component';
 import {RouterLink} from '@angular/router';
 import {UserGameService} from '../../services/userGame/user-game.service';
 import {UserGame} from '../../models/user-game';
+import {RecommendationsComponent} from '../recommendations/recommendations.component';
 
 @Component({
   selector: 'app-collection',
@@ -13,7 +14,8 @@ import {UserGame} from '../../models/user-game';
     NgIf,
     CardComponent,
     RouterLink,
-    NgForOf
+    NgForOf,
+    RecommendationsComponent
   ],
   templateUrl: './collection.component.html',
   styleUrl: './collection.component.css'

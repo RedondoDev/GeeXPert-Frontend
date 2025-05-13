@@ -44,7 +44,7 @@ export class GameService {
     );
   }
 
-  getExploreGames(page: number, size: number): Observable<Game[]> {
+  public getExploreGames(page: number, size: number): Observable<Game[]> {
     return this.http.get<Game[]>(this.exploreUrl + page + '&size=' + size).pipe(
       map((games) => games.map((game) => new Game(
         game.id,
