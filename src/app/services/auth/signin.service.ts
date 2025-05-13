@@ -3,6 +3,7 @@ import {SigninRequest} from './signinRequest';
 import {catchError, Observable, throwError, BehaviorSubject, tap, map} from 'rxjs';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {isPlatformBrowser} from '@angular/common';
+import {jwtDecode} from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -59,6 +60,16 @@ export class SigninService {
 
   get userToken(): String {
     return this.currentUserData.getValue();
+  }
+
+  getUserIdFromToken(token: string): number | null {
+    try {
+      const decodedToken: any = jwtDecode(token);
+      return decodedToken?.userId || null;
+    } catch (error) {
+      console.error('Error decoding token:', error);
+      return null;
+    }
   }
 
 }
