@@ -3,6 +3,8 @@ import {DatePipe, NgIf, SlicePipe} from '@angular/common';
 import {Router, RouterLink} from '@angular/router';
 import {SigninService} from '../../services/auth/signin.service';
 import {UserGameService} from '../../services/userGame/user-game.service';
+import {PopupComponent} from '../../popup/popup/popup.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-card',
@@ -18,6 +20,7 @@ import {UserGameService} from '../../services/userGame/user-game.service';
 export class CardComponent implements OnInit {
 
   @Input() game: any;
+  @Input() isInRecommendations: boolean = false;
   currentState: number = 0;
   isLoggedIn: boolean = false;
   userCollection: any[] = [];
@@ -25,7 +28,7 @@ export class CardComponent implements OnInit {
   @Output() collectionUpdated = new EventEmitter<{ previousState: number, newState: number, gameId: number }>();
 
   constructor(private cdr: ChangeDetectorRef, private signInService: SigninService,
-              private userGameService: UserGameService, protected router: Router,) {
+              private userGameService: UserGameService, protected router: Router, private dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -89,6 +92,12 @@ export class CardComponent implements OnInit {
         this.isGameInCollection = true;
         this.cdr.detectChanges();
         this.loadUserCollection();
+        if (this.isInRecommendations) {
+          this.dialog.open(PopupComponent, {
+            width: '600px',
+            disableClose: true,
+          });
+        }
       },
       error: (error) => {
         console.error('Error adding game to collection:', error);

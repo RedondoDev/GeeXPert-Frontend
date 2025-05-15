@@ -46,4 +46,5 @@ export class RecommendationsComponent {
     }
     return null;
   }
+
 }
