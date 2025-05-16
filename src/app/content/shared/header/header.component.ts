@@ -16,13 +16,14 @@ import {FormsModule} from '@angular/forms';
 })
 export class HeaderComponent implements OnInit {
 
-  isLoggedIn: boolean = false;
+  isLoggedIn: boolean | null = null;
   searchQuery: string = '';
 
   constructor(private signinService: SigninService, private router: Router) {
   };
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    this.isLoggedIn = await this.signinService.waitForAuthState();
     this.signinService.currentUserSignedIn.subscribe({
       next: (isLoggedIn) => {
         this.isLoggedIn = isLoggedIn;

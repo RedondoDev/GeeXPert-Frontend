@@ -72,4 +72,15 @@ export class SigninService {
     }
   }
 
+  async waitForAuthState(): Promise<boolean> {
+    return new Promise((resolve) => {
+      if (isPlatformBrowser(this.platformId)) {
+        const token = sessionStorage.getItem("token");
+        resolve(!!token);
+      } else {
+        resolve(false);
+      }
+    });
+  }
+
 }
