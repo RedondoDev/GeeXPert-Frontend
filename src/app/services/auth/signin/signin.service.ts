@@ -1,5 +1,5 @@
 import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
-import {SigninRequest} from './signinRequest';
+import {SigninRequest} from '../../../models/signinRequest';
 import {catchError, Observable, throwError, BehaviorSubject, tap, map} from 'rxjs';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {isPlatformBrowser} from '@angular/common';
@@ -47,7 +47,7 @@ export class SigninService {
     } else {
       console.error(`Backend returned code ${error.status}, body was: ${error.error}`);
     }
-    return throwError(() => new Error('Something bad happened. Please try again later.'));
+    return throwError(() => new Error('Incorrect credentials. Verify your username and password.'));
   }
 
   get userData(): Observable<String> {

@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {Router, RouterLink} from '@angular/router';
 import {AbstractControl, FormBuilder, ReactiveFormsModule, ValidationErrors, Validators} from '@angular/forms';
 import {NgIf} from '@angular/common';
-import {SignupService} from '../../services/auth/signup.service';
+import {SignupService} from '../../../services/auth/signup/signup.service';
 
 @Component({
   selector: 'app-signup',

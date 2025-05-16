@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {NgIf} from '@angular/common';
 import {Router, RouterLink} from '@angular/router';
-import {SigninService} from '../../services/auth/signin.service';
+import {SigninService} from '../../../services/auth/signin/signin.service';
 import {FormsModule} from '@angular/forms';
 
 @Component({

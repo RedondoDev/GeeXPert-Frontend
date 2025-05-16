@@ -2,8 +2,8 @@ import {Component} from '@angular/core';
 import {Router, RouterLink} from '@angular/router';
 import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {NgIf} from '@angular/common';
-import {SigninService} from '../../services/auth/signin.service';
-import {SigninRequest} from '../../services/auth/signinRequest';
+import {SigninService} from '../../../services/auth/signin/signin.service';
+import {SigninRequest} from '../../../models/signinRequest';
 
 @Component({
   selector: 'app-signin',

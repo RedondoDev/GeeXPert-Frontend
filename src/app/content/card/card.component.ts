@@ -1,9 +1,9 @@
 import {ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {DatePipe, NgIf, SlicePipe} from '@angular/common';
 import {Router, RouterLink} from '@angular/router';
-import {SigninService} from '../../services/auth/signin.service';
+import {SigninService} from '../../services/auth/signin/signin.service';
 import {UserGameService} from '../../services/userGame/user-game.service';
-import {PopupComponent} from '../../popup/popup/popup.component';
+import {PopupComponent} from '../popup/popup.component';
 import {MatDialog} from '@angular/material/dialog';
 
 @Component({

@@ -1,10 +1,10 @@
-<div class="flex flex-col text-[#F3F3F3] px-50 py-8 mt-[-25px]">
-    <div class="grid grid-cols-5 grid-rows-2 gap-6">
+<div class="flex flex-col text-[#F3F3F3] px-40 py-8 mt-[-25px]">
+    <div class="grid grid-cols-5 grid-rows-2 gap-8">
       <div *ngFor="let game of games" class="relative group perspective">
         <app-card [game]="game"></app-card>
       </div>
     </div>
-    <div class="flex justify-center mt-8">
+    <div class="flex w-full justify-center mt-8">
       <button
         *ngIf="!isLoading"
         (click)="loadMoreGames()"
