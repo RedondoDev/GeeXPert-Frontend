@@ -1,59 +1,101 @@
-# GeeXPert
+<div id="Badges1">
+    <img alt="Stars Count" src="https://img.shields.io/github/stars/RedondoDev/GeeXPert-Frontend?style=flat-square&color=yellow">
+    <img alt="License" src="https://img.shields.io/badge/License-MIT-purple?style=flat-square">    
+</div>
+<div id="Badges2">
+    <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" height="20">
+    <img alt="Angular" src="https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white" height="20">
+    <img alt="Node JS" src="https://img.shields.io/badge/Node%20js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" height="20">
+    <img alt="HTML5" src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" height="20">
+    <img alt="Tailwind" src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" height="20">
+    <img alt="Docker" src="https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white" height="20">
+</div>
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.6.
+<br>
 
-## Development server
+*GeeXPert Frontend is the user interface component for the GeeXPert ecosystem. While the main repository covers the full application (frontend, backend, etc.), this repository focuses exclusively on frontend logic and user experience. If you want to see the parent repository, click on the following link: <a href="https://github.com/RedondoDev/GeeXPert">GeeXPert</a>.*
 
-To start a local development server, run:
+# GeeXPert Frontend
 
-```bash
-ng serve
-```
+This repository contains the frontend code for the GeeXPert application. The frontend is built with TypeScript and Angular, aiming to provide a smooth user experience for managing video game collections, personalized recommendations, and game exploration.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Table of Contents
+- [Features](#features)
+- [Technologies](#technologies)
+- [Backend Integration](#backend-integration)
+- [Installation](#installation)
+- [Author](#author)
+- [License](#license)
 
-## Code scaffolding
+## Features
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### 1. User Authentication & Authorization
+- Allows user registration and login via the [backend](https://github.com/RedondoDev/GeeXPert-Backend) API.
+- Handles JWT tokens in local storage and protects private routes.
 
-```bash
-ng generate component component-name
-```
+### 2. IGDB Integration & Game Management
+- Enables browsing, searching, and viewing game details via the [backend](https://github.com/RedondoDev/GeeXPert-Backend) API.
+- Lists such as "top", "trending", and "search" results.
+- Detail cards with extended information for each game.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### 3. Personal Game Collection
+- Users can add, remove, and change the state of games (pending, playing, completed).
+- Personalized collection view, fully synchronized with the backend.
 
-```bash
-ng generate --help
-```
+### 4. Personalized Recommendations
+- Interface to receive game recommendations based on the user's collection.
+- Integrates with AI-powered endpoints provided by the [backend](https://github.com/RedondoDev/GeeXPert-Backend) using [ollama](https://github.com/ollama/ollama).
 
-## Building
+### 5. Modern User Experience
+- Responsive design using [Tailwind CSS](https://tailwindcss.com/).
+- Intuitive navigation and real-time visual feedback.
 
-To build the project run:
+## Technologies
 
-```bash
-ng build
-```
+<ul>
+  <li>TypeScript</li>
+  <li>Angular</li>
+    <ul>
+      <li>Angular Material</li>
+    </ul>
+  <li>Node JS</li>
+  <li>HTML5</li>
+  <li>Tailwind CSS</li>
+  <li>Docker</li>
+</ul>
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Backend Integration
 
-## Running unit tests
+The application communicates via RESTful endpoints provided by the backend. Main endpoints include:
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+- Authentication
+- Games
+- Collection
+- Recommendations
 
-```bash
-ng test
-```
+You can check the API endpoinds on [backend](https://github.com/RedondoDev/GeeXPert-Backend).
 
-## Running end-to-end tests
+> **Note:** The backend must be running locally or accessible for the frontend to work properly.
 
-For end-to-end (e2e) testing, run:
+## Installation
 
-```bash
-ng e2e
-```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Author
 
-## Additional Resources
+<table>
+    <tr>
+        <th>RedondoDEV</th>    
+    </tr>
+    <tr>        
+        <td>
+            <a href="https://github.com/RedondoDev">
+                <img src="https://avatars.githubusercontent.com/u/163606882?v=1" width="110px"> 
+            </a>
+        </td>
+    </tr>
+</table>
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## License
+
+This project is licensed under the [MIT License](https://github.com/RedondoDev/GeeXPert-Frontend/blob/master/README.md)  
+<img alt="License" src="https://img.shields.io/badge/License-MIT-purple?style=flat-square"> 
