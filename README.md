@@ -23,7 +23,6 @@ This repository contains the frontend code for the GeeXPert application. The fro
 - [Features](#features)
 - [Technologies](#technologies)
 - [Backend Integration](#backend-integration)
-- [Installation](#installation)
 - [Author](#author)
 - [License](#license)
 
@@ -76,9 +75,6 @@ The application communicates via RESTful endpoints provided by the backend. Main
 You can check the API endpoinds on [backend](https://github.com/RedondoDev/GeeXPert-Backend).
 
 > **Note:** The backend must be running locally or accessible for the frontend to work properly.
-
-## Installation
-
 
 ## Author
 
